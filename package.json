@@ -4,6 +4,9 @@
     "description": "AI conference deadlines",
     "icon": "icon.png",
     "version": "0.0.1",
+    "publisher": "innerlee",
+    "license": "MIT",
+    "repository": "https://github.com/innerlee/deadlines",
     "engines": {
         "vscode": "^1.42.0"
     },
