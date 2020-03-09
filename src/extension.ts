@@ -5,6 +5,7 @@ import { StatusBarItem, window, StatusBarAlignment, workspace } from 'vscode';
 import { URL } from 'url';
 import https = require('https');
 import ical = require('ical');
+import moment = require('moment');
 import { ListenOptions } from 'net';
 
 // this method is called when your extension is activated
@@ -36,24 +37,34 @@ class Deadline {
 	private _statusBarItem: StatusBarItem;
 	private _name: string;
 	private _ddl: Date;
+	private _interval: NodeJS.Timer | undefined;
 
 	constructor(name: string, ddl: Date) {
 		this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left, 1);
 		this._name = name;
 		this._ddl = ddl;
 
+		// Update the status bar
+		if (this.showornot) {
+			this.update();
+			this._statusBarItem.show();
+			this._interval = setInterval(() => {
+				this.update();
+			}, 10000);
+		}
+	}
+
+	public async update() {
+		var diff = Math.floor((this.ddl.getTime() - Date.now()) / (1000 * 3600 * 24));
+		var diffdate = new Date(this.ddl.getTime() - Date.now());
 		let tooltip = [
-			`= ${name} =`,
-			`deadline: ${ddl}`,
+			`= ${this.name} =`,
+			`deadline: ${this.ddl}`,
+			moment(this.ddl).fromNow()
 		];
 
-		// Update the status bar
-		var diff = Math.floor((ddl.getTime() - Date.now()) / (1000 * 3600 * 24));
-		this._statusBarItem.text = `${name} (${diff} days)`;
+		this._statusBarItem.text = `${this.name} (${diff} days)`;
 		this._statusBarItem.tooltip = tooltip.join('\n');
-		if (this.showornot) {
-			this._statusBarItem.show();
-		}
 	}
 
 	static parse(): Array<Deadline> {

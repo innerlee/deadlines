@@ -3,7 +3,7 @@
     "displayName": "deadlines",
     "description": "AI conference deadlines",
     "icon": "icon.png",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "innerlee",
     "license": "MIT",
     "repository": "https://github.com/innerlee/deadlines",
@@ -71,6 +71,7 @@
     },
     "dependencies": {
         "@types/ical": "^0.6.1",
-        "ical": "^0.6.0"
+        "ical": "^0.6.0",
+        "moment": "^2.24.0"
     }
 }
