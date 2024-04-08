@@ -72,6 +72,6 @@
     "dependencies": {
         "@types/ical": "^0.6.1",
         "ical": "^0.6.0",
-        "moment": "^2.29.2"
+        "moment": "^2.29.4"
     }
 }
